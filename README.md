@@ -35,14 +35,21 @@ This project is a **Streamlit-based web app** that allows users to:
 ```bash
 git clone https://github.com/JOSEAROSEMENA/quantfolio.git
 cd quantfolio
+```
 
-# 2. Create a Virtual Environment  
+### **2. Create a Virtual Environment **
+```bash
 python -m venv venv  
 source venv/bin/activate  # MacOS/Linux  
 # .\venv\Scripts\activate  # Windows  
+```
 
-# 3. Install Dependencies  
+### 3. Install Dependencies  
+```bash
 pip install -r requirements.txt  
+```
 
-# 4. Run the Streamlit App  
+### 4. Run the Streamlit App  
+```bash
 streamlit run app.py  
+```
