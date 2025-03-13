@@ -3,6 +3,9 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
 
 st.title(" 📈 Quantfolio")
 
@@ -48,7 +51,35 @@ if st.button("Get Stock Data"):
                 ax.xaxis.set_major_locator(locator)
                 ax.xaxis.set_major_formatter(formatter)
                 plt.xticks(rotation=45)
+                # ✅ Prepare data for prediction
+                data['Date_Ordinal'] = data.index.map(pd.Timestamp.toordinal)
+                X = data[['Date_Ordinal']]
+                y = data['Close']
 
+                # Split data into train and test sets
+                X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
+
+                # ✅ Train Linear Regression Model
+                model = LinearRegression()
+                model.fit(X_train, y_train)
+
+                # ✅ Predict on test set
+                y_pred = model.predict(X_test)
+
+                # ✅ Predict future values (30 days ahead)
+                future_dates = pd.date_range(start=data.index[-1], periods=30, freq='B')  # Business days only
+                future_ordinal = future_dates.map(pd.Timestamp.toordinal).values.reshape(-1, 1)
+                future_predictions = model.predict(future_ordinal)
+
+                # ✅ Plot Predictions
+                ax.plot(data.index[-len(y_test):], y_pred, label="Predicted (Test)", color="orange", linestyle="--")
+                ax.plot(future_dates, future_predictions, label="Future Prediction", color="red", linestyle="--")
+
+                # ✅ Show Model Performance
+                mse = mean_squared_error(y_test, y_pred)
+                r2 = r2_score(y_test, y_pred)
+                st.write(f"**Mean Squared Error:** {mse:.2f}")
+                st.write(f"**R² Score:** {r2:.2f}")
                 ax.legend()
                 st.pyplot(fig)
             else:
