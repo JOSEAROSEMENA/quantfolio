@@ -33,16 +33,24 @@ if st.button("Get Stock Data"):
                 ax.set_xlabel("Date")
                 ax.set_ylabel("Price ($)")
 
-                # Rotate and format x-axis labels
-                locator = mdates.MonthLocator(interval=3)
-                formatter = mdates.ConciseDateFormatter(locator)
+                # 📅 Dynamic x-axis spacing based on date range
+                date_diff = (end_date - start_date).days
+                if date_diff <= 365:  # Less than 1 year → Monthly labels
+                    locator = mdates.MonthLocator(interval=1)
+                    formatter = mdates.DateFormatter('%b %Y')  # e.g., Jan 2023
+                elif date_diff <= 5 * 365:  # 1–5 years → Quarterly labels
+                    locator = mdates.MonthLocator(interval=3)
+                    formatter = mdates.DateFormatter('%b %Y')
+                else:  # More than 5 years → Yearly labels
+                    locator = mdates.YearLocator()
+                    formatter = mdates.DateFormatter('%Y')
+
                 ax.xaxis.set_major_locator(locator)
                 ax.xaxis.set_major_formatter(formatter)
-                plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+                plt.xticks(rotation=45)
 
                 ax.legend()
                 st.pyplot(fig)
-
             else:
                 st.error(f"No data found for {ticker}")
         
