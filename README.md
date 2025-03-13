@@ -1,4 +1,4 @@
-# 📈 Quantfolio
+# 📈 [Quantfolio](https://quantfolio.streamlit.app/)
 ## Stock Price Prediction and Portfolio Optimization Tool  
 This project is a **Streamlit-based web app** that allows users to:  
 ✅ Fetch real-time stock price data using `yfinance`  
