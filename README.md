@@ -1,4 +1,5 @@
-# 📈 Stock Price Prediction and Portfolio Optimization Tool  
+# 📈 Quantfolio
+## Stock Price Prediction and Portfolio Optimization Tool  
 This project is a **Streamlit-based web app** that allows users to:  
 ✅ Fetch real-time stock price data using `yfinance`  
 ✅ Visualize historical stock prices with dynamically adjusted x-axis spacing  
@@ -37,19 +38,19 @@ git clone https://github.com/JOSEAROSEMENA/quantfolio.git
 cd quantfolio
 ```
 
-### **2. Create a Virtual Environment **
+### **2. Create a Virtual Environment**
 ```bash
 python -m venv venv  
 source venv/bin/activate  # MacOS/Linux  
 # .\venv\Scripts\activate  # Windows  
 ```
 
-### 3. Install Dependencies  
+### **3. Install Dependencies**  
 ```bash
 pip install -r requirements.txt  
 ```
 
-### 4. Run the Streamlit App  
+### **4. Run the Streamlit App**  
 ```bash
 streamlit run app.py  
 ```
